@@ -86,6 +86,9 @@ RUN curl -LsSf https://astral.sh/uv/install.sh | bash
 RUN curl -fsSL https://bun.sh/install | bash
 # Install Claude
 RUN npm install -g @anthropic-ai/claude-code@${CLAUDE_CODE_VERSION}
+# Install Rust
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | bash -s -- -y
+RUN /home/node/.cargo/bin/cargo install cargo-llvm-cov
 
 COPY settings.json /home/node/.claude/settings.json
 COPY .ccstatusline/settings.json /home/node/.config/ccstatusline/settings.json
@@ -114,6 +117,6 @@ RUN chmod +x /usr/local/bin/init-firewall.sh && \
 USER node
 
 # Set up MCP server for Unity
-RUN echo "claude mcp add unityMCP /home/node/.local/bin/uv -- run --directory /home/node/Library/AppSupport/UnityMCP/UnityMcpServer/src server.py || true" >> /home/node/.zshrc
+RUN echo "claude mcp add --transport http UnityMCP http://host.docker.internal:6400/mcp || true" >> /home/node/.zshrc
 
 ENTRYPOINT [ "zsh" ]

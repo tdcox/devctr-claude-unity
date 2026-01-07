@@ -48,7 +48,6 @@
     "source=claude-code-bashhistory-${devcontainerId},target=/commandhistory,type=volume",
     "source=claude-code-config-${devcontainerId},target=/home/node/.claude,type=volume",
     "source=claude-code-ccstatus-${devcontainerId},target=/home/node/.config,type=volume",
-    "source=${localEnv:HOME}/Library/AppSupport/UnityMCP,target=/home/node/Library/AppSupport/UnityMCP,type=bind,consistency=cached"
   ],
   "containerEnv": {
     "NODE_OPTIONS": "--max-old-space-size=4096",

@@ -77,6 +77,11 @@ for domain in \
     "marketplace.visualstudio.com" \
     "vscode.download.prss.microsoft.com" \
     "vscode.blob.core.windows.net" \
+    "sh.rustup.rs" \
+    "static.rust-lang.org" \
+    "index.crates.io" \
+    "static.crates.io" \
+    "crates.io" \
     "download.visualstudio.microsoft.com" \
     "update.code.visualstudio.com"; do
     echo "Resolving $domain..."
