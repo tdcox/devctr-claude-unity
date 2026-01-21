@@ -37,9 +37,6 @@ iptables -A INPUT -p tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT
 iptables -A INPUT -i lo -j ACCEPT
 iptables -A OUTPUT -o lo -j ACCEPT
 
-# Allow outbound unity-mcp
-iptables -A OUTPUT -p tcp --dport 6400 -j ACCEPT
-
 # Create ipset with CIDR support
 ipset create allowed-domains hash:net
 
@@ -91,7 +88,7 @@ for domain in \
         exit 1
     fi
     
-    # Hack
+    # Hack to enable Microsoft downloads
     ipset add -exist allowed-domains "57.150.149.97"
     # End hack
 
@@ -114,6 +111,13 @@ fi
 
 HOST_NETWORK=$(echo "$HOST_IP" | sed "s/\.[0-9]*$/.0\/24/")
 echo "Host network detected as: $HOST_NETWORK"
+
+# Allow outbound unity-mcp
+iptables -A OUTPUT -p tcp --dport 6400 -j ACCEPT
+
+# Allow entangled-mcp
+iptables -A OUTPUT -d "$HOST_NETWORK" -p tcp --dport 8420 -j ACCEPT
+iptables -A INPUT -s "$HOST_NETWORK" -p tcp --dport 8421 -j ACCEPT
 
 # Set up remaining iptables rules
 iptables -A INPUT -s "$HOST_NETWORK" -j ACCEPT
@@ -150,3 +154,6 @@ if ! curl --connect-timeout 5 https://api.github.com/zen >/dev/null 2>&1; then
 else
     echo "Firewall verification passed - able to reach https://api.github.com as expected"
 fi
+
+# refresh entangled mcp server binary
+cp -f ./entangled-mcp /usr/local/bin/

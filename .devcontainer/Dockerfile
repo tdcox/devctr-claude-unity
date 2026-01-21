@@ -70,11 +70,16 @@ ENV SHELL=/bin/zsh
 ENV EDITOR=nano
 ENV VISUAL=nano
 
-# Default powerline10k theme
-ARG ZSH_IN_DOCKER_VERSION=1.2.0
+# Spaceship theme
+ARG ZSH_IN_DOCKER_VERSION=1.2.1
 RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/v${ZSH_IN_DOCKER_VERSION}/zsh-in-docker.sh)" -- \
+  -t https://github.com/denysdovhan/spaceship-prompt \
+  -a 'SPACESHIP_PROMPT_ADD_NEWLINE="false"' \
+  -a 'SPACESHIP_PROMPT_SEPARATE_LINE="false"' \  
   -p git \
   -p fzf \
+  -p history \
+  -p common-aliases \
   -a "source /usr/share/doc/fzf/examples/key-bindings.zsh" \
   -a "source /usr/share/doc/fzf/examples/completion.zsh" \
   -a "export PROMPT_COMMAND='history -a' && export HISTFILE=/commandhistory/.bash_history" \
@@ -118,5 +123,8 @@ USER node
 
 # Set up MCP server for Unity
 RUN echo "claude mcp add --transport http UnityMCP http://host.docker.internal:6400/mcp || true" >> /home/node/.zshrc
+
+# Add entangled MCP server with default settings
+RUN echo "claude mcp add entangled -s user -- entangled-mcp serve || true" >> /home/node/.zshrc
 
 ENTRYPOINT [ "zsh" ]

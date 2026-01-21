@@ -1,7 +1,46 @@
 {
+  "hooks": {
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c 'ARRAY=(done ok finished ready there complete) ; ARRSIZE=${#ARRAY[@]} ; N1=$(($RANDOM % $ARRSIZE)) ; STATEMENT=${ARRAY[$N1+1]} ; curl http://host.docker.internal:8087/?p=${STATEMENT}'"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c 'ARRAY=(hello hey hm you%20still%20there waiting lalalah snore) ; ARRSIZE=${#ARRAY[@]} ; N1=$(($RANDOM % $ARRSIZE)) ; STATEMENT=${ARRAY[$N1+1]} ; curl http://host.docker.internal:8087/?p=${STATEMENT}'"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "AskUserQuestion",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c 'ARRAY=(little%20help%20please quick%20question need%20input need%20to%20ask) ; ARRSIZE=${#ARRAY[@]} ; N1=$(($RANDOM % $ARRSIZE)) ; STATEMENT=${ARRAY[$N1+1]} ; curl http://host.docker.internal:8087/?p=${STATEMENT}'"
+          }
+        ]
+      }
+    ]
+  },
   "statusLine": {
     "type": "command",
     "command": "bunx -y ccstatusline@latest",
     "padding": 0
+  },
+  "enabledPlugins": {
+    "taches-cc-resources@taches-cc-resources": true,
+    "rust-analyzer-lsp@claude-plugins-official": true
   }
 }
