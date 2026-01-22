@@ -160,3 +160,4 @@ fi
 
 # refresh entangled mcp server binary
 cp -f ./.devcontainer/entangled-mcp-linux-arm64 /usr/local/bin/entangled-mcp
+cp -f ./.devcontainer/entangled-supervisor-linux-arm64 /usr/local/bin/entangle

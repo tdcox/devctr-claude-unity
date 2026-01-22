@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash -c 'ARRAY=(done ok finished ready there complete) ; ARRSIZE=${#ARRAY[@]} ; N1=$(($RANDOM % $ARRSIZE)) ; STATEMENT=${ARRAY[$N1+1]} ; curl http://host.docker.internal:8087/?p=${STATEMENT}'"
+            "command": "bash -c 'ARRAY=(done ok finished ready there complete) ; ARRSIZE=${#ARRAY[@]} ; N1=$(($RANDOM % $ARRSIZE)) ; STATEMENT=${ARRAY[$N1]} ; curl http://host.docker.internal:8087/?p=${STATEMENT}'"
           }
         ]
       }
@@ -17,18 +17,18 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash -c 'ARRAY=(hello hey hm you%20still%20there waiting lalalah snore) ; ARRSIZE=${#ARRAY[@]} ; N1=$(($RANDOM % $ARRSIZE)) ; STATEMENT=${ARRAY[$N1+1]} ; curl http://host.docker.internal:8087/?p=${STATEMENT}'"
+            "command": "bash -c 'ARRAY=(hello hey hm you%20still%20there waiting lalalah snore) ; ARRSIZE=${#ARRAY[@]} ; N1=$(($RANDOM % $ARRSIZE)) ; STATEMENT=${ARRAY[$N1]} ; curl http://host.docker.internal:8087/?p=${STATEMENT}'"
           }
         ]
       }
     ],
-    "PostToolUse": [
+    "PreToolUse": [
       {
         "matcher": "AskUserQuestion",
         "hooks": [
           {
             "type": "command",
-            "command": "bash -c 'ARRAY=(little%20help%20please quick%20question need%20input need%20to%20ask) ; ARRSIZE=${#ARRAY[@]} ; N1=$(($RANDOM % $ARRSIZE)) ; STATEMENT=${ARRAY[$N1+1]} ; curl http://host.docker.internal:8087/?p=${STATEMENT}'"
+            "command": "bash -c 'ARRAY=(little%20help%20please quick%20question need%20input need%20to%20ask) ; ARRSIZE=${#ARRAY[@]} ; N1=$(($RANDOM % $ARRSIZE)) ; STATEMENT=${ARRAY[$N1]} ; curl http://host.docker.internal:8087/?p=${STATEMENT}'"
           }
         ]
       }
